@@ -1,8 +1,38 @@
+import { useRef } from "react"
+import axiosClient from "../axios.client"
 import { Link } from "react-router-dom"
+import { useStateContext } from "../contexts/ContextProvider"
 
 export default function Signup () {
+
+    const nameREF = useRef()
+    const emailREF = useRef()
+    const passwordREF = useRef()
+    const passwordConfirmationREF = useRef()
+
+    const {setUser, setToken} = useStateContext()
     const onSubmit = (e) => {
         e.preventDefault()
+        const payload = {
+            name: nameREF.current.value,
+            email: emailREF.current.value,
+            password: passwordREF.current.value,
+            password_confirmation: passwordConfirmationREF.current.value
+        }
+        axiosClient.post('/signup', payload)   
+        .then(({data}) => {
+            setUser(data.user)
+            setToken(data.token)
+        }) 
+        
+        .catch((err) => {
+            console.error("Error during signup:", err);
+            const response = err.response;
+            if (response && response.status === 422) {
+                console.log(response.data.errors);
+            }
+        })
+        
     }
     
     return (
@@ -26,6 +56,7 @@ export default function Signup () {
                             </label>
                             <article className="flex flex-col items-start">
                                 <input
+                                    ref={nameREF}
                                     type="text"
                                     name="name"
                                     className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -41,6 +72,7 @@ export default function Signup () {
                             </label>
                             <article className="flex flex-col items-start">
                                 <input
+                                    ref={emailREF}
                                     type="email"
                                     name="email"
                                     className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -56,6 +88,7 @@ export default function Signup () {
                             </label>
                             <article className="flex flex-col items-start">
                                 <input
+                                    ref={passwordREF}
                                     type="password"
                                     name="password"
                                     className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -71,6 +104,7 @@ export default function Signup () {
                             </label>
                             <article className="flex flex-col items-start">
                                 <input
+                                    ref={passwordConfirmationREF}
                                     type="password"
                                     name="password_confirmation"
                                     className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -80,7 +114,7 @@ export default function Signup () {
                         <section className="flex items-center justify-end mt-4">
                             <Link to='/login'
                                 className="text-sm text-gray-600 underline hover:text-gray-900"
-                                href="#"
+                               
                             >
                                 Already registered?
                             </Link>
