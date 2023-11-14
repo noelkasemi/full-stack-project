@@ -13,7 +13,7 @@ export default function Login () {
                 <h1 className="text-3xl font-semibold text-center text-purple-700 underline">
                    Sign in
                 </h1>
-                <form onSubmit={onSubmit} className="mt-6">
+                <form autoComplete="given-name" onSubmit={onSubmit} className="mt-6">
                     <article className="mb-2">
                         <label
                             htmlFor="email"

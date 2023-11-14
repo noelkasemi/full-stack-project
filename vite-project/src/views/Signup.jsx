@@ -46,19 +46,21 @@ export default function Signup () {
                     </a>
                 </header>
                 <main className="w-full px-6 py-4 mt-6 overflow-hidden bg-slate-50 shadow-md sm:max-w-md sm:rounded-lg">
-                    <form onSubmit={onSubmit}>
+                    <form autoComplete="on" onSubmit={onSubmit}>
                         <section>
                             <label
-                                htmlFor="name"
+                                htmlFor="name" 
                                 className="block text-sm font-medium text-gray-700 undefined"
                             >
                                 Name
                             </label>
                             <article className="flex flex-col items-start">
                                 <input
+                                    autoComplete="on"
                                     ref={nameREF}
                                     type="text"
                                     name="name"
+                                    id="name"
                                     className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 />
                             </article>
@@ -72,6 +74,8 @@ export default function Signup () {
                             </label>
                             <article className="flex flex-col items-start">
                                 <input
+                                    autoComplete="on"
+                                    id="email"
                                     ref={emailREF}
                                     type="email"
                                     name="email"
@@ -88,6 +92,7 @@ export default function Signup () {
                             </label>
                             <article className="flex flex-col items-start">
                                 <input
+                                    id="password"
                                     ref={passwordREF}
                                     type="password"
                                     name="password"
@@ -104,6 +109,7 @@ export default function Signup () {
                             </label>
                             <article className="flex flex-col items-start">
                                 <input
+                                    id="password_confirmation"
                                     ref={passwordConfirmationREF}
                                     type="password"
                                     name="password_confirmation"
